@@ -15,7 +15,7 @@ Start three nodes in three terminals:
 
 ```bash
 # Terminal 1
-node bin/raftkv.js serve --id n1 --port 8001 \
+node cli/raftkv.js serve --id n1 --port 8001 \
   --peers n2=http://127.0.0.1:8002,n3=http://127.0.0.1:8003 \
   --data ./data-n1
 
@@ -26,11 +26,11 @@ node bin/raftkv.js serve --id n1 --port 8001 \
 Then talk to any node — writes are forwarded to the leader automatically:
 
 ```bash
-node bin/raftkv.js put greeting hello --node http://127.0.0.1:8001
-node bin/raftkv.js get greeting       --node http://127.0.0.1:8002
-node bin/raftkv.js keys               --node http://127.0.0.1:8003
-node bin/raftkv.js delete greeting    --node http://127.0.0.1:8001
-node bin/raftkv.js status             --node http://127.0.0.1:8001
+node cli/raftkv.js put greeting hello --node http://127.0.0.1:8001
+node cli/raftkv.js get greeting       --node http://127.0.0.1:8002
+node cli/raftkv.js keys               --node http://127.0.0.1:8003
+node cli/raftkv.js delete greeting    --node http://127.0.0.1:8001
+node cli/raftkv.js status             --node http://127.0.0.1:8001
 ```
 
 Kill the leader's terminal and watch a new leader get elected; `put` keeps
@@ -88,7 +88,7 @@ working and the data written before the crash is still there.
 ## Project layout
 
 ```
-bin/raftkv.js        CLI: serve / put / get / delete / keys / status
+cli/raftkv.js        CLI: serve / put / get / delete / keys / status
 src/node.js          Raft core: elections, voting, replication, commit
 src/log.js           1-indexed replicated log
 src/persistence.js   durable term / vote / log (atomic JSON on disk)
